@@ -41,6 +41,12 @@ jobs:
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" "platform-tools" "platforms;android-36" "ndk;28.2.13676358"
 
+      - name: Install host shader tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y glslang-tools
+          glslangValidator --version
+
       - name: Build OpenSw Release
         working-directory: src/android
         run: ./gradlew :app:assembleOpenSwRelease --no-daemon --stacktrace
